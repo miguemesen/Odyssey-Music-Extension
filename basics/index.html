@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Music Player</title>
+    <link rel="stylesheet" href="main.css">
+</head>
+<body>
+    <button id="open" class="openBtn"><img src="options.png"></button>
+    <input type="range" class= "volumeBar" id="volumeBar" step=".1" min="0" max="100" value="100">
+    <div id="myNav" class="overlay">
+        <a id="closeBtn" class="closeBtn">&times;</a>
+
+        <div class="overlay-content">
+          <a href="#">About</a>
+          <a href="#">Services</a>
+          <a href="#">Clients</a>
+          <a href="#">Contact</a>
+        </div>
+      </div>
+      
+    <div id="player"></div>
+    <div class="container">
+        <div class="wrapper">
+            <h1 id="song-name">              </h1>
+            <img id="mainImage" src="https://i.pinimg.com/originals/b4/75/00/b4750046d94fed05d00dd849aa5f0ab7.jpg">
+            <input type="range" class= "level" id="time" step=".1" min="0" max="0" value="0">
+            <div class="buttons">
+                <button id="pre"><img src="rewind.png"></button>
+                <button id="play"><img id="play_img" src="pause.png"></button>
+                <button id="next"><img src="fast-forward.png"></button>
+                <button id="volume"><img src="volume.png"></button>
+            </div>
+        </div>
+    </div>
+    <script src="main.js"></script>
+</body>
+</html>
