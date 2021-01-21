@@ -5,6 +5,7 @@ var firstScriptTag = document.getElementsByTagName('script')[0];
 firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
 var player, mainImage, playBtn, nextBtn, preBtn, openBtn, closeBtn, volumeBtn, playing, timeBar, volumeBar, songName, movingBar, videoData, changingVolume;
+var panel, playable;
 
 playBtn = document.getElementById("play");
 preBtn = document.getElementById("pre");
@@ -16,12 +17,12 @@ openBtn = document.getElementById("open");
 closeBtn = document.getElementById("closeBtn");
 mainImage = document.getElementById("mainImage");
 volumeBtn = document.getElementById("volume");
-
-
+panel = document.getElementById("panelItem");
 
 playing = true;
 movingBar = false;
 changingVolume = false;
+playable = false;
 
 
 function onYouTubeIframeAPIReady() {
@@ -29,7 +30,6 @@ function onYouTubeIframeAPIReady() {
         height: '0', 
         width: '0',
         autoplay: '0',
-        videoId:"QuxQnR4uTG4",
         playerVars: { 'controls': 2 },
         events: {
             'onReady': onPlayerReady,
@@ -69,8 +69,27 @@ closeBtn.onclick = function(){
 async function changeSong(songId){
     player.loadVideoById(songId);
     // Actualizar el nombre de la nueva canción.
-    updateData(songId);
-    console.log(player.getPlayerState());
+
+    videoInfo(songId).then(function(result){
+        console.log("Result: ")
+        console.log(result)
+        var status, imgUrl, name;
+        status = result.playabilityStatus.status;
+        imgUrl = result.videoDetails.thumbnail.thumbnails[2].url;
+        name = result.videoDetails.title.replaceAll("+", " ");
+
+        songName.innerHTML = name;
+        mainImage.src = imgUrl;
+
+        if (status === "UNPLAYABLE"){
+            panel.style.height = `${mainImage.height}px`;
+            panel.style.width = `${mainImage.width}px`;
+            panel.style.visibility = "visible";
+        }
+        else{
+            panel.style.visibility = "hidden";
+        } 
+    })
 }
 
 timeBar.onchange = function(){
@@ -92,7 +111,7 @@ volumeBar.onchange = function(){
 }
 
 function onPlayerReady(event) {
-    changeSong("W5d4SJv2d6M");
+    //changeSong("W5d4SJv2d6M");
 }
 
 function onPlayerStateChange(event) {
@@ -100,26 +119,48 @@ function onPlayerStateChange(event) {
     player.addEventListener("onStateChange", updateBar);
 }
 
+async function videoInfo(songId){
+    parseYoutubeInfoStringToFormats = function(youtubeInfoString) {
+        var element, formatStreamArray, youtubeInfoArray, _i, _len;
+        youtubeInfoArray = youtubeInfoString.split('&');
+  
+        if (youtubeInfoArray[0] === 'status=fail') {
+          return false;
+        }
+  
+        var _i, _len, _results;
+  
+        for (_i = 0, _len = youtubeInfoArray.length; _i < _len; _i++) {
+          element = youtubeInfoArray[_i];
+          if (element.split('=')[0] === 'player_response') {
+              //console.log(element);
+              _results = element;
+              break;
+          }
+        }
+  
+        formatStreamArray = decodeURIComponent(_results);
+        formatStreamArray = formatStreamArray.replace("player_response=", "");
+        var jsonObj = JSON.parse(formatStreamArray);
+        console.log(jsonObj);
+        return jsonObj;
+      };
 
-async function isPlayable(songId){
-    let myResponse = await fetch(`https://youtube.googleapis.com/youtube/v3/videos?part=contentDetails&id=${songId}&key=AIzaSyB61Hqd0S1jfbqMuuFHMU8ojp3O8gEry9k`, {
-            method: 'GET',
-            headers: {
-                "Content-type": "application/json"
-    }}).then(response => response.json()).then(json => json);
-    console.log(myResponse);
-}
+    var promise = new Promise(function(resolve){
+        var anHttpRequest = new XMLHttpRequest();
+        anHttpRequest.open("GET", "http://www.youtube.com/get_video_info?video_id=" + songId, true);
+        anHttpRequest.setRequestHeader('Access-Control-Allow-Origin','*');
+        anHttpRequest.setRequestHeader('Access-Control-Allow-Credentials', 'true');
+        anHttpRequest.setRequestHeader('Access-Control-Allow-Headers','Content-Type, Authorization');
+        anHttpRequest.setRequestHeader('Content-type', 'text');
+        anHttpRequest.onreadystatechange = function () {
+            if (anHttpRequest.readyState == 4 && anHttpRequest.status == 200)
+                resolve(parseYoutubeInfoStringToFormats(anHttpRequest.responseText));  
+        };
+        anHttpRequest.send(null);
+    });
 
-
-
-async function updateData(songId){
-    let myResponse = await fetch(`https://youtube.googleapis.com/youtube/v3/search?part=snippet&q=${songId}&key=AIzaSyB61Hqd0S1jfbqMuuFHMU8ojp3O8gEry9k`, {
-            method: 'GET',
-            headers: {
-                "Content-type": "application/json"
-    }}).then(response => response.json()).then(json => json);
-    songName.innerHTML = myResponse.items[0].snippet.title;
-    mainImage.src = myResponse.items[0].snippet.thumbnails.high.url;
+    return promise;
 }
 
 function updateBar () {
@@ -142,8 +183,13 @@ function openNav() {
 
 chrome.runtime.onMessage.addListener(
     function(request, sender, sendResponse) {
-        //console.log("https://www.youtube.com/embed/"+request.msg)
-        //document.getElementById("interfaz").src="https://www.youtube.com/embed/"+request.msg
         changeSong(request.msg)
+    }
+);
+
+chrome.runtime.onMessage.addListener(
+    function(request, sender, sendResponse) {
+        console.log("dentro del main")
+        console.log(request.usr)
     }
 );

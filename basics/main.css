@@ -44,7 +44,7 @@ body{
     padding: 0 5px;
     visibility: hidden;
 }
-.volumeBar ::-webkit-slider-thumb{
+.volumeBar::-webkit-slider-thumb{
     -webkit-appearance: none;
     background-color: #A2B1C6;
     box-shadow: 2px 2px 5px #A2B1C6 , -2px -2px 5px  #fff  ;
@@ -52,7 +52,7 @@ body{
     height: 20px; /* Slider handle height */
     border-radius: 90px;
 }
-.volumeBar ::-moz-range-thumb{
+.volumeBar::-moz-range-thumb{
     width: 25px;
     height: 25px;
 }
@@ -72,8 +72,32 @@ body{
 .wrapper{
     position: relative;
 }
-.container img{
+.textImg{
+    position: relative;
+}
+.textImg .panel {
+    visibility: hidden;
+    position:absolute;
+    bottom:0px;
+    left:0px;
+    z-index: inherit top;
+ }
+ 
+ .textImg .panelItem {
+    float:right; 
+    height: 225px;
+    visibility: hidden;
+    background:rgba(0, 0, 0, 0.425);
+    color:rgb(255, 255, 255);
+    padding:3px;
+ }
+.textImg .panelItem .panelText{
+    font-size: 1.5rem;
+    text-align: center;
+ }
+.textImg img{
     width: 300px;
+    z-index: 10;
 }
 .container h1{
     font-size: 1.5rem;

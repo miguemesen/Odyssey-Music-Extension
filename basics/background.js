@@ -11,8 +11,9 @@ chrome.identity.getProfileUserInfo( async function(info) {
     .then(response => response.json())
     .then(json => json)
 
+    sendUsername(email)
+
     if (idExist.user_exist === true){
-        console.log("hola desde aqui xd")
         return;
     }
 
@@ -26,17 +27,23 @@ chrome.identity.getProfileUserInfo( async function(info) {
             "email": email
         })
     })
-    
 });
 
 
 
 chrome.omnibox.onInputChanged.addListener(async function (text, suggest){
+
+    if (text === "ALL"){
+        window.open('allSongs.html')
+
+    }
+    
     let xd = await fetch(`http://localhost:3000/song/${text}`, {
         method: 'GET',
         headers: {
             "Content-type": "application/json"
-}})
+        }
+    })
   .then(response => response.json())
   .then(json => json)
     for (track in xd){
@@ -60,4 +67,10 @@ function sendYoutubeLink(message){
     chrome.runtime.sendMessage({
         msg: message
     });
+}
+
+function sendUsername(username){
+    chrome.runtime.sendMessage({
+        usr: username
+    })
 }

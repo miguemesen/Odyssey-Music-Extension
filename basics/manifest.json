@@ -2,7 +2,7 @@
     "manifest_version": 2,
     "name": "Odyssey Music Extension",
     "version": "0.1",
-    "omnibox":{"keyword": "xd"},
+    "omnibox":{"keyword": "odyssey"},
     "content_scripts": [
         {
             "matches": [
@@ -19,7 +19,7 @@
         "default_popup": "index.html",
         "default_title": "Odyssey Radio"
     },
-    "content_security_policy": "script-src 'self' https://www.youtube.com https://cdn.rawgit.com https://ajax.googleapis.com https://gdata.youtube.com; object-src 'self'",
+    "content_security_policy": "script-src 'self' https://crossorigin.me https://www.youtube.com https://cdn.rawgit.com https://ajax.googleapis.com https://gdata.youtube.com; object-src 'self'",
     "permissions":[
         "storage", "identity", "identity.email"
     ]
