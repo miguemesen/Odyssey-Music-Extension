@@ -71,8 +71,6 @@ async function changeSong(songId){
     // Actualizar el nombre de la nueva canción.
 
     videoInfo(songId).then(function(result){
-        console.log("Result: ")
-        console.log(result)
         var status, imgUrl, name;
         status = result.playabilityStatus.status;
         imgUrl = result.videoDetails.thumbnail.thumbnails[2].url;

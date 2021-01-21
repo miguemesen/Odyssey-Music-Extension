@@ -68,9 +68,3 @@ function sendYoutubeLink(message){
         msg: message
     });
 }
-
-function sendUsername(username){
-    chrome.runtime.sendMessage({
-        usr: username
-    })
-}
