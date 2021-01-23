@@ -1,33 +1,33 @@
-chrome.identity.getProfileUserInfo( async function(info) { 
-    email = info.email; 
-    user = info.id;
-    console.log(email)
-    console.log(user)
-    let idExist = await fetch(`http://localhost:3000/users/exist/${user}`, {
-        method: 'GET',
-        headers: {
-            "Content-type": "application/json"
-    }})
-    .then(response => response.json())
-    .then(json => json)
+// chrome.identity.getProfileUserInfo( async function(info) { 
+//     email = info.email; 
+//     user = info.id;
+//     console.log(email)
+//     console.log(user)
+//     let idExist = await fetch(`http://localhost:3000/users/exist/${user}`, {
+//         method: 'GET',
+//         headers: {
+//             "Content-type": "application/json"
+//     }})
+//     .then(response => response.json())
+//     .then(json => json)
 
-    sendUsername(email)
+//     await sendYoutubeLink(email,"email")
 
-    if (idExist.user_exist === true){
-        return;
-    }
+//     if (idExist.user_exist === true){
+//         return;
+//     }
 
-    await fetch(`http://localhost:3000/users`, {
-        method: 'POST',
-        headers: {
-            "Content-type": "application/json"
-        },
-        body: JSON.stringify({
-            "id": user,
-            "email": email
-        })
-    })
-});
+//     await fetch(`http://localhost:3000/users`, {
+//         method: 'POST',
+//         headers: {
+//             "Content-type": "application/json"
+//         },
+//         body: JSON.stringify({
+//             "id": user,
+//             "email": email
+//         })
+//     })
+// });
 
 
 
@@ -60,11 +60,12 @@ chrome.omnibox.onInputEntered.addListener(async function(text, disposition){
       .then(response => response.json())
       .then(json => json)
       console.log(myResponse.items[0].id.videoId)
-      sendYoutubeLink(myResponse.items[0].id.videoId)
+      await sendYoutubeLink(myResponse.items[0].id.videoId,"id")
 })
 
-function sendYoutubeLink(message){
+async function sendYoutubeLink(message){
     chrome.runtime.sendMessage({
         msg: message
     });
 }
+

@@ -181,13 +181,38 @@ function openNav() {
 
 chrome.runtime.onMessage.addListener(
     function(request, sender, sendResponse) {
+        console.log(request)
         changeSong(request.msg)
     }
 );
 
-chrome.runtime.onMessage.addListener(
-    function(request, sender, sendResponse) {
-        console.log("dentro del main")
-        console.log(request.usr)
+chrome.identity.getProfileUserInfo( async function(info) { 
+    email = info.email; 
+    user = info.id;
+    console.log(email)
+    console.log(user)
+    let idExist = await fetch(`http://localhost:3000/users/exist/${user}`, {
+        method: 'GET',
+        headers: {
+            "Content-type": "application/json"
+    }})
+    .then(response => response.json())
+    .then(json => json)
+
+    document.getElementById("greetings").innerHTML = email
+
+    if (idExist.user_exist === true){
+        return;
     }
-);
+
+    await fetch(`http://localhost:3000/users`, {
+        method: 'POST',
+        headers: {
+            "Content-type": "application/json"
+        },
+        body: JSON.stringify({
+            "id": user,
+            "email": email
+        })
+    })
+});
