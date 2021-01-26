@@ -67,10 +67,12 @@ closeBtn.onclick = function(){
     closeNav();
 }
 
+//async function addNewSong()
+
 async function changeSong(songId){
     player.loadVideoById(songId);
     // Actualizar el nombre de la nueva canción.
-
+    
     videoInfo(songId).then(function(result){
         var status, imgUrl, name;
         status = result.playabilityStatus.status;
@@ -132,7 +134,6 @@ async function videoInfo(songId){
         for (_i = 0, _len = youtubeInfoArray.length; _i < _len; _i++) {
           element = youtubeInfoArray[_i];
           if (element.split('=')[0] === 'player_response') {
-              //console.log(element);
               _results = element;
               break;
           }
@@ -141,7 +142,6 @@ async function videoInfo(songId){
         formatStreamArray = decodeURIComponent(_results);
         formatStreamArray = formatStreamArray.replace("player_response=", "");
         var jsonObj = JSON.parse(formatStreamArray);
-        console.log(jsonObj);
         return jsonObj;
       };
 
@@ -182,7 +182,7 @@ function openNav() {
 
 chrome.runtime.onMessage.addListener(
     function(request, sender, sendResponse) {
-        console.log(request)
+        console.log(request.exist)
         changeSong(request.msg)
     }
 );
@@ -205,7 +205,6 @@ chrome.identity.getProfileUserInfo( async function(info) {
     if (idExist.user_exist === true){
         return;
     }
-
     await fetch(`http://localhost:3000/users`, {
         method: 'POST',
         headers: {

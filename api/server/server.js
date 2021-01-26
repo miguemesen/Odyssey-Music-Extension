@@ -35,9 +35,7 @@ app.get('/users/:id', async (request, response)=>{
 app.get('/users/exist/:id', async (request, response)=>{
 
     const id = request.params.id;
-    console.log(id);
     const user_exist = await mysql_server.user_verification(id);
-    console.log(user_exist);
     response.status(200).json({user_exist});
 
 })
@@ -53,6 +51,18 @@ app.post('/users', async (request, response)=>{
     const email = request.body.email;
     await mysql_server.add_user(id, email);
     response.status(200).send('User added');
+})
+
+
+app.post('/addSong', async (request, response)=>{
+    const track_name = request.body.Track_Name; 
+    const album_name = request.body.Album_Name;
+    const artist_name = request.body.Artist_Name;
+    const song_id = request.body.Song_ID;
+    const song_status = request.body.Song_Status;
+    const song_img = request.body.Song_Img;
+    await mysql_server.add_user(track_name,album_name,artist_name,song_id,song_status,song_img);
+    response.status(200).send('Song added');
 })
 
 
@@ -90,7 +100,6 @@ app.get('/songs', async (request, response)=>{
 app.get('/song/:name', async (request, response)=>{
     const song_name = request.params.name;
     const song = await mysql_server.get_song(song_name);
-    console.log(song)
     response.status(200).send(song);
 })
 

@@ -72,6 +72,12 @@ class mysql_server {
       this.mySql_connection.end();
     }
 
+    async add_song(Track_Name, Album_Name, Artist_Name, Song_ID, Song_Status, Song_Img){
+      this.mySql_connection = await this.initConnection();
+      await this.mySql_connection.query('CALL MUSIC_DATABASE.add_song(?,?,?,?,?,?)', [Track_Name, Album_Name, Artist_Name, Song_ID, Song_Status, Song_Img]);
+      this.mySql_connection.end();
+    }
+
 
     async delete_user(id){
 
