@@ -55,9 +55,9 @@ preBtn.onclick = function(){
     player.seekTo(0);
 }
 
-nextBtn.onclick = function(){
-    changeSong("acEOASYioGY")
-}
+//nextBtn.onclick = function(){
+//    changeSong("acEOASYioGY")
+//}
 
 openBtn.onclick = function(){
     openNav();
@@ -69,7 +69,8 @@ closeBtn.onclick = function(){
 
 //async function addNewSong()
 
-async function changeSong(songId){
+async function changeSong(songId, songExist){
+    console.log("esto es en el main " + songExist)
     player.loadVideoById(songId);
     // Actualizar el nombre de la nueva canción.
     
@@ -182,8 +183,7 @@ function openNav() {
 
 chrome.runtime.onMessage.addListener(
     function(request, sender, sendResponse) {
-        console.log(request.exist)
-        changeSong(request.msg)
+        changeSong(request.msg,request.exist)
     }
 );
 
@@ -216,3 +216,21 @@ chrome.identity.getProfileUserInfo( async function(info) {
         })
     })
 });
+
+
+async function addSong(trackName,albumName,artistName,songId,songStatus,songImg){
+    await fetch(`http://localhost:3000/addSong`, {
+        method: 'POST',
+        headers: {
+            "Content-type": "application/json"
+        },
+        body: JSON.stringify({
+            "Track_Name": trackName,
+            "Album_Name": albumName,
+            "Artist_Name": artistName,
+            "Song_ID": songId,
+            "Song_Status": songStatus,
+            "Song_Img": songImg
+        })
+    })
+}

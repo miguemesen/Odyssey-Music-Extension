@@ -29,7 +29,7 @@ chrome.omnibox.onInputEntered.addListener(async function(text, disposition){
     })
   .then(response => response.json())
   .then(json => json)
-
+  console.log(someResponse)
 
     let myResponse = await fetch(`https://youtube.googleapis.com/youtube/v3/search?part=snippet&q=${text}&key=AIzaSyB61Hqd0S1jfbqMuuFHMU8ojp3O8gEry9k`, {
             method: 'GET',
