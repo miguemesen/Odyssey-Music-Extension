@@ -61,6 +61,8 @@ app.post('/addSong', async (request, response)=>{
     const song_id = request.body.Song_ID;
     const song_status = request.body.Song_Status;
     const song_img = request.body.Song_Img;
+    console.log("esto es song img:")
+    console.log(song_img)
     await mysql_server.add_song(track_name,album_name,artist_name,song_id,song_status,song_img);
     response.status(200).send('Song added');
 })
@@ -103,6 +105,11 @@ app.get('/song/:name', async (request, response)=>{
     response.status(200).send(song);
 })
 
+app.get('/song_reverse/:name', async (request, response)=>{
+    const song_name = request.params.name;
+    const song = await mysql_server.get_prueba(song_name);
+    response.status(200).send(song);
+})
 
 /**
  * Elimina la cancion indicado por id de la base de datos. Requiere de un rol administrador.

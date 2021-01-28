@@ -73,6 +73,7 @@ class mysql_server {
     }
 
     async add_song(Track_Name, Album_Name, Artist_Name, Song_ID, Song_Status, Song_Img){
+      console.log()
       this.mySql_connection = await this.initConnection();
       await this.mySql_connection.query('CALL MUSIC_DATABASE.add_song(?,?,?,?,?,?)', [Track_Name, Album_Name, Artist_Name, Song_ID, Song_Status, Song_Img]);
       this.mySql_connection.end();
@@ -100,6 +101,14 @@ class mysql_server {
     async get_song(song_name){
       this.mySql_connection = await this.initConnection();
       const [song] = await this.mySql_connection.execute("CALL MUSIC_DATABASE.get_song(?)",[song_name]);
+      this.mySql_connection.end();
+
+      return song[0];
+    }
+
+    async get_prueba(song_name){
+      this.mySql_connection = await this.initConnection();
+      const [song] = await this.mySql_connection.execute("CALL MUSIC_DATABASE.get_song_reverse(?)",[song_name]);
       this.mySql_connection.end();
 
       return song[0];
