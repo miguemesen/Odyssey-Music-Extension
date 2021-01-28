@@ -103,6 +103,11 @@ app.get('/song/:name', async (request, response)=>{
     response.status(200).send(song);
 })
 
+app.get('/song_reverse/:name', async (request, response)=>{
+    const song_name = request.params.name;
+    const song = await mysql_server.get_prueba(song_name);
+    response.status(200).send(song);
+})
 
 /**
  * Elimina la cancion indicado por id de la base de datos. Requiere de un rol administrador.

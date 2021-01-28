@@ -40,11 +40,18 @@ CREATE PROCEDURE add_song(_track_name char(128), _album_name char(128), _artist_
         INSERT INTO songs (Track_Name, Album_Name, Artist_Name, Song_ID, Song_Status, Song_Img) VALUES (_track_name,_album_name,_artist_name,_song_id,_song_status,_song_img);
     end;
 
+CREATE PROCEDURE get_song_reverse(song_stuff char(128))
+    BEGIN
+        SELECT *
+        FROM songs
+        WHERE song_stuff REGEXP songs.Artist_Name OR song_stuff REGEXP songs.Track_Name OR song_stuff REGEXP songs.Album_Name;
+    end;
+
+
+
 CREATE PROCEDURE get_song(song_stuff char(128))
     BEGIN
         SELECT *
         FROM songs
         WHERE Track_Name REGEXP song_stuff OR Artist_Name REGEXP song_stuff OR Album_Name REGEXP song_stuff;
     END;
-
-
