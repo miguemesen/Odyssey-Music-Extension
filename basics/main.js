@@ -71,6 +71,7 @@ closeBtn.onclick = function(){
 
 async function changeSong(songId, songExist){
     console.log("esto es en el main " + songExist)
+
     player.loadVideoById(songId);
     // Actualizar el nombre de la nueva canción.
     
@@ -79,6 +80,10 @@ async function changeSong(songId, songExist){
         status = result.playabilityStatus.status;
         imgUrl = result.videoDetails.thumbnail.thumbnails[2].url;
         name = result.videoDetails.title.replaceAll("+", " ");
+
+        if (songExist){
+            addSong(name,name,name,songId,status,imgUrl)
+        }
 
         songName.innerHTML = name;
         mainImage.src = imgUrl;

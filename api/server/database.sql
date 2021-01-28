@@ -14,8 +14,10 @@ CREATE TABLE IF NOT EXISTS songs(
     Artist_Name char(128) NOT NULL,
     Song_ID char(32),
     Song_Status char(32),
-    Song_Img char(128)
+    Song_Img char(255)
 );
+
+
 
 CREATE PROCEDURE get_users()
     BEGIN
@@ -35,10 +37,12 @@ CREATE PROCEDURE get_songs()
         SELECT * FROM songs;
     END;
 
-CREATE PROCEDURE add_song(_track_name char(128), _album_name char(128), _artist_name char(128), _song_id char(32), _song_status char(32), _song_img char(128))
+CREATE PROCEDURE add_song(_track_name char(128), _album_name char(128), _artist_name char(128), _song_id char(32), _song_status char(32), _song_img char(255))
     BEGIN
         INSERT INTO songs (Track_Name, Album_Name, Artist_Name, Song_ID, Song_Status, Song_Img) VALUES (_track_name,_album_name,_artist_name,_song_id,_song_status,_song_img);
     end;
+
+
 
 CREATE PROCEDURE get_song_reverse(song_stuff char(128))
     BEGIN
@@ -55,3 +59,5 @@ CREATE PROCEDURE get_song(song_stuff char(128))
         FROM songs
         WHERE Track_Name REGEXP song_stuff OR Artist_Name REGEXP song_stuff OR Album_Name REGEXP song_stuff;
     END;
+
+select * from songs
