@@ -107,11 +107,15 @@ class mysql_server {
     }
 
     async get_prueba(song_name){
+      try{
       this.mySql_connection = await this.initConnection();
       const [song] = await this.mySql_connection.execute("CALL MUSIC_DATABASE.get_song_reverse(?)",[song_name]);
       this.mySql_connection.end();
 
       return song[0];
+      } catch(e){
+        console.log(e)
+      }
     }
 
 }

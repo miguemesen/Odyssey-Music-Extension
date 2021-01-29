@@ -21,31 +21,32 @@ chrome.omnibox.onInputChanged.addListener(async function (text, suggest){
 
 chrome.omnibox.onInputEntered.addListener(async function(text, disposition){
 
-    let someResponse = await fetch(`http://localhost:3000/song_reverse/${text}`, {
-        method: 'GET',
-        headers: {
-            "Content-type": "application/json"
-        }
-    })
-  .then(response => response.json())
-  .then(json => json)
-  console.log("esto es some response")
-  console.log(someResponse)
+//     console.log()
+    
 
-    let myResponse = await fetch(`https://youtube.googleapis.com/youtube/v3/search?part=snippet&q=${text}&key=AIzaSyB61Hqd0S1jfbqMuuFHMU8ojp3O8gEry9k`, {
+//     let someResponse = await fetch(`http://localhost:3000/song_reverse/${text}`, {
+//         method: 'GET',
+//         headers: {
+//             "Content-type": "application/json"
+//         }
+//     })
+//   .then(response => response.json())
+//   .then(json => json)
+//   console.log(Object.keys(someResponse).length === 0)
+
+    let myResponse = await fetch(`https://youtube.googleapis.com/youtube/v3/search?part=snippet&q=${text}&key=AIzaSyDFuf10lVl7UUl-cQxv3PfON18Q1xZcoI8`, {
             method: 'GET',
             headers: {
                 "Content-type": "application/json"
     }})
       .then(response => response.json())
       .then(json => json)
-  await sendYoutubeLink(myResponse.items[0].id.videoId,Object.keys(someResponse).length === 0)
+  await sendYoutubeLink(myResponse.items[0].id.videoId)
 })
 
-async function sendYoutubeLink(message, otherMsg){
+async function sendYoutubeLink(message){
     chrome.runtime.sendMessage({
-        msg: message,
-        exist: otherMsg
+        msg: message
     });
 }
 
