@@ -19,6 +19,8 @@ mainImage = document.getElementById("mainImage");
 volumeBtn = document.getElementById("volume");
 panel = document.getElementById("panelItem");
 
+about = document.getElementById("about");
+
 playing = true;
 movingBar = false;
 changingVolume = false;
@@ -38,6 +40,10 @@ function onYouTubeIframeAPIReady() {
             'onStateChange': onPlayerStateChange
         },
     });
+}
+
+about.onclick = function () {
+    console.log("hola desde el about")
 }
 
 playBtn.onclick = function() {
@@ -232,20 +238,3 @@ chrome.identity.getProfileUserInfo( async function(info) {
     })
 });
 
-
-async function addSong(trackName,albumName,artistName,songId,songStatus,songImg){
-    await fetch(`http://localhost:3000/addSong`, {
-        method: 'POST',
-        headers: {
-            "Content-type": "application/json"
-        },
-        body: JSON.stringify({
-            "Track_Name": trackName,
-            "Album_Name": albumName,
-            "Artist_Name": artistName,
-            "Song_ID": songId,
-            "Song_Status": songStatus,
-            "Song_Img": songImg
-        })
-    })
-}

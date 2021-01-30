@@ -22,7 +22,6 @@ app.get("/users", async (request, response)=>{
  */
 app.get('/users/:id', async (request, response)=>{
 
-
 })
 
 

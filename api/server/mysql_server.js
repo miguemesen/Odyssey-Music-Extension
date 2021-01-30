@@ -33,18 +33,18 @@ class mysql_server {
         return users; 
     }
 
+    async get_user_id(id){
+
+    }
+
 
     async user_verification(id){
       let users = await (this.get_users());
       users = users[0];
       
       if ( users.length === 0){
-        console.log("dentro del if")
         return false;
       }
-
-      console.log(users[0].id);
-
 
       for(let i=0; i<users.length; i++)
       {
@@ -54,14 +54,6 @@ class mysql_server {
         }
       }
 
-      return false; 
-    
-      for(user_id in users){
-        consolo.log(user_id);
-        if(id == user_id) {
-          return true;
-        }
-      }
       return false; 
     }
 
@@ -84,8 +76,13 @@ class mysql_server {
       this.mySql_connection = await this.initConnection();
       await this.mySql_connection.query('CALL MUSIC_DATABASE.delete_user(?)', id);
       this.mySql_connection.end();
+    }
 
-    
+    async delete_song(song_id){
+
+      this.mySql_connection = await this.initConnection();
+      await this.mySql_connection.query('CALL MUSIC_DATABASE.delete_song(?)', song_id);
+      this.mySql_connection.end();
     }
 
     async get_songs(){
