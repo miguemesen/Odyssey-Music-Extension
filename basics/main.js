@@ -24,7 +24,8 @@ movingBar = false;
 changingVolume = false;
 playable = false;
 
-
+var queue = [];
+let queueIndex = -1;
 
 function onYouTubeIframeAPIReady() {
     player = new YT.Player('player', {
@@ -52,12 +53,23 @@ playBtn.onclick = function() {
 }
 
 preBtn.onclick = function(){
-    player.seekTo(0);
+    //player.seekTo(0);
+    console.log(queue)
+    if (queueIndex === -1 || queueIndex === 0){
+        return
+    }
+    queueIndex--
+    changeSong(queue[queueIndex],"pre")
 }
 
-//nextBtn.onclick = function(){
-//    changeSong("acEOASYioGY")
-//}
+nextBtn.onclick = function(){
+    console.log("next")
+    if (queueIndex === queue.length || queueIndex === -1){
+        return
+    }
+    queueIndex++
+   changeSong(queue[queueIndex], "skip")
+}
 
 openBtn.onclick = function(){
     openNav();
@@ -67,16 +79,17 @@ closeBtn.onclick = function(){
     closeNav();
 }
 
-//async function addNewSong()
+async function changeSong(songId, interaction){
 
-async function changeSong(songId){
-
+    if (interaction === "newSong"){
+        queue.push(songId)
+        queueIndex = queue.length
+    }
 
     player.loadVideoById(songId);
     // Actualizar el nombre de la nueva canción.
     
     videoInfo(songId).then(function(result){
-        console.log(result)
         var status, imgUrl, name;
         status = result.playabilityStatus.status;
         imgUrl = result.videoDetails.thumbnail.thumbnails[2].url;
@@ -185,7 +198,7 @@ function openNav() {
 
 chrome.runtime.onMessage.addListener(
     function(request, sender, sendResponse) {
-        changeSong(request.msg)
+        changeSong(request.msg, "newSong")
     }
 );
 
