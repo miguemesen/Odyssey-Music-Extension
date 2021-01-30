@@ -12,7 +12,7 @@ Head to the green "Code" button and start the cloning!
 
 As soon as you finished cloning, search for chrome://extensions/
 
-![](https://raw.githubusercontent.com/miguemesen/ChromeExtension/master/Images/chromeExtension.png)
+![](https://github.com/miguemesen/Odyssey-Music-Extension/blob/master/Images/chromeExtension.png?raw=true)
 
 ***
 
