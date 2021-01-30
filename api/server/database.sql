@@ -67,11 +67,6 @@ CREATE PROCEDURE get_song(song_stuff char(128))
         WHERE Track_Name REGEXP song_stuff OR Artist_Name REGEXP song_stuff OR Album_Name REGEXP song_stuff OR Song_ID REGEXP song_stuff;
     END;
 
-<<<<<<< HEAD
-select * from songs
-
-=======
 
 
 select * from songs
->>>>>>> 6eb92a0767d31c0942295f0cc898494fd09677ca
