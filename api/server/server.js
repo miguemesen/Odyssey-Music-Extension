@@ -61,8 +61,6 @@ app.post('/addSong', async (request, response)=>{
     const song_id = request.body.Song_ID;
     const song_status = request.body.Song_Status;
     const song_img = request.body.Song_Img;
-    console.log("esto es song img:")
-    console.log(song_img)
     await mysql_server.add_song(track_name,album_name,artist_name,song_id,song_status,song_img);
     response.status(200).send('Song added');
 })
