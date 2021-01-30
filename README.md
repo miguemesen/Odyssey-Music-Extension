@@ -49,7 +49,7 @@ You should now see your new extension, it should look like this
 Remember to activate the extension if it doesn't do it by itself!
 
 ***
-
+ 
 ## Voila!
 
 Yay! You now have the ChromeExtension, enjoy!
