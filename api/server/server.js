@@ -69,22 +69,22 @@ app.post('/addSong', async (request, response)=>{
  * Elimina el usuario indicado por id de la base de datos. Requiere de un rol administrador.
  */
 app.delete('/users/:id', async(request, response)=>{
-
     const id = request.params.id; 
     const user_exist = await mysql_server.user_verification(id);
 
     if(user_exist){
         await mysql_server.delete_user(id);
         response.status(200).send("User deleted");
-
     }
-
     response.status(404).send("User not found");
-
-  
 })
 
 
+app.delete('/songs/:id', async(request, response)=>{
+    const id = request.params.id; 
+    await mysql_server.delete_song(id);
+    response.status(200).send("Song deleted");
+})
 
 
 /**

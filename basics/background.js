@@ -101,10 +101,15 @@ async function addSong(track_name,album_name,artist_name,song_id,song_status,son
 
 async function deleteSong(song_id){
     console.log(song_id)
+    await fetch(`http://localhost:3000/songs/${song_id}`, {
+        method: 'DELETE',
+        headers: {
+            "Content-type": "application/json"
+        }
+    })
 }
 
 async function deleteUser(user_id){
-    console.log(user_id)
     await fetch(`http://localhost:3000/users/${user_id}`, {
         method: 'DELETE',
         headers: {
