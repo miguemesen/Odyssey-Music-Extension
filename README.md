@@ -20,7 +20,7 @@ As soon as you finished cloning, search for chrome://extensions/
 
 Now we're talking,enter "Developer mode" to access the cool stuff!
 
-![](https://raw.githubusercontent.com/miguemesen/ChromeExtension/master/Images/developerMode.png)
+![](https://github.com/miguemesen/Odyssey-Music-Extension/blob/master/Images/developerMode.png?raw=true)
 
 ***
 
@@ -28,7 +28,7 @@ Now we're talking,enter "Developer mode" to access the cool stuff!
 
 Press the "Load unpacked" button to select your new chrome extension
 
-![](https://raw.githubusercontent.com/miguemesen/ChromeExtension/master/Images/loadUnpacked.png)
+![](https://github.com/miguemesen/Odyssey-Music-Extension/blob/master/Images/loadUnpacked.png?raw=true)
 
 ***
 
@@ -36,7 +36,7 @@ Press the "Load unpacked" button to select your new chrome extension
 
 Now we need to search for that project you cloned earlier. Inside the project you'll find a folder called "basic", that's what we're uploading!
 
-![](https://raw.githubusercontent.com/miguemesen/ChromeExtension/master/Images/selectBasic.png)
+![](https://github.com/miguemesen/Odyssey-Music-Extension/blob/master/Images/selectBasic.png?raw=true)
 
 ***
 
@@ -44,7 +44,7 @@ Now we need to search for that project you cloned earlier. Inside the project yo
 
 You should now see your new extension, it should look like this
 
-![](https://raw.githubusercontent.com/miguemesen/ChromeExtension/master/Images/extensionOnChrome.png)
+![](https://github.com/miguemesen/Odyssey-Music-Extension/blob/master/Images/extensionOnChrome.png?raw=true)
 
 Remember to activate the extension if it doesn't do it by itself!
 
@@ -54,6 +54,6 @@ Remember to activate the extension if it doesn't do it by itself!
 
 Yay! You now have the ChromeExtension, enjoy!
 
-![](https://raw.githubusercontent.com/miguemesen/ChromeExtension/master/Images/pinExtension.png)
+![](https://github.com/miguemesen/Odyssey-Music-Extension/blob/master/Images/pinExtension.png?raw=true)
 
 Remeber to pin it to your task bar!
