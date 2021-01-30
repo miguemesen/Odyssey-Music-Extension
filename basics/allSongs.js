@@ -31,6 +31,8 @@ makeRequest()
       Song_Name.innerHTML = item.Track_Name;
       let Artist_Name = row.insertCell(1);
       Artist_Name.innerHTML = item.Artist_Name;
+      let Song_ID = row.insertCell(2);
+      Song_ID.innerHTML = item.Song_ID
     });
   }
 //   loadTableData(items1);
