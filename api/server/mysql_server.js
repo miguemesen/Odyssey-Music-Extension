@@ -25,7 +25,6 @@ class mysql_server {
     }
 
 
-
     async get_users(){
         this.mySql_connection = await this.initConnection();
         const [users] = await  this.mySql_connection.execute('CALL MUSIC_DATABASE.get_users()');
