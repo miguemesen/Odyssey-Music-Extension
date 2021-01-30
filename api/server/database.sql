@@ -24,14 +24,31 @@ CREATE PROCEDURE get_users()
         SELECT  * FROM users;
     END;
 
+CREATE PROCEDURE get_user(user_id LONG)
+    BEGIN
+        SELECT *
+        FROM users
+        WHERE id REGEXP user_id;
+    end;
+
 CREATE PROCEDURE add_user(new_id LONG, new_email char(64))
     BEGIN
         INSERT INTO users (id,email) VALUES (new_id,new_email);
     END;
-CREATE PROCEDURE delete_user(id_ INTEGER)
+CREATE PROCEDURE delete_user(id_ LONG)
     BEGIN
         DELETE FROM users WHERE id=id_;
     END;
+
+CREATE PROCEDURE delete_song(song_id_ char(32))
+    BEGIN
+        DELETE FROM songs
+        WHERE Song_ID regexp song_id_;
+    end;
+
+
+
+
 CREATE PROCEDURE get_songs()
     BEGIN
         SELECT * FROM songs;
@@ -43,22 +60,18 @@ CREATE PROCEDURE add_song(_track_name char(128), _album_name char(128), _artist_
     end;
 
 
-
-CREATE PROCEDURE get_song_reverse(song_stuff char(128))
-    BEGIN
-        SELECT *
-        FROM songs
-        WHERE song_stuff REGEXP songs.Artist_Name OR song_stuff REGEXP songs.Track_Name OR song_stuff REGEXP songs.Album_Name;
-    end;
-
-
-
 CREATE PROCEDURE get_song(song_stuff char(128))
     BEGIN
         SELECT *
         FROM songs
-        WHERE Track_Name REGEXP song_stuff OR Artist_Name REGEXP song_stuff OR Album_Name REGEXP song_stuff;
+        WHERE Track_Name REGEXP song_stuff OR Artist_Name REGEXP song_stuff OR Album_Name REGEXP song_stuff OR Song_ID REGEXP song_stuff;
     END;
 
+<<<<<<< HEAD
 select * from songs
 
+=======
+
+
+select * from songs
+>>>>>>> 6eb92a0767d31c0942295f0cc898494fd09677ca
